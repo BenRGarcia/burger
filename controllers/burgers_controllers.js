@@ -5,7 +5,7 @@ const burger = require('../models/burger.js');
 // Create router
 const apiRouter = express.Router();
 
-// Define methods for PATH '/'
+// Define methods for PATH '/api/burgers'
 apiRouter.route('/')
   .get((req, res, next) => {})
   .post((req, res, next) => {})
