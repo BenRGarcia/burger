@@ -12,7 +12,7 @@ router.route('/')
       burger.getAllBurgers()
         // Render burgers to response
         .then(burgers => {
-          res.render('index', burgers);
+          res.render('index', { burgers });
         })
         // Error handling
         .catch(err => {
