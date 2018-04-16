@@ -8,7 +8,13 @@ const burger = {
         .catch(err => reject(err));
     });
   },
-  addNewBurger: () => { orm.insertOne() },
+  addNewBurger: burger => {
+    return new Promise((resolve, reject) => {
+      orm.insertOne(burger)
+        .then(res => resolve(res))
+        .catch(err => reject(err));
+    });
+  },
   eatBurger: () => { orm.updateOne() }
 };
 
