@@ -8,7 +8,6 @@ const orm = {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM burgers', (err, res, fields) => {
         if (err) reject(err);
-        console.log(res);
         resolve(res);
       });
     });
