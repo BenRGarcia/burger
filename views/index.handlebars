@@ -20,9 +20,11 @@
       <h2>2) Eat Burgers Here</h2>
       <ul class="text-left">
         {{#each burgers}}
-        <li>
-          <button class="btn">Eat Now</button> {{burger_name}}
-        </li>
+          {{#unless devoured}}
+            <li>
+              <button class="btn">Eat Now</button> {{burger_name}}
+            </li>
+          {{/unless}}
         {{/each}}
       </ul>
     </div>
@@ -32,9 +34,11 @@
     <div class="list-bg">
       <h2>3) Burgers You Have Eaten</h2>
       <ul class="text-left">
-        <li>Cheeseburger</li>
-        <li>Hamburger</li>
-        <li>Double Bacon Cheeseburger</li>
+        {{#each burgers}}
+          {{#if devoured}}
+          <li>{{burger_name}}</li>
+          {{/if}}
+        {{/each}}
       </ul>
     </div>
   </div>
