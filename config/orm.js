@@ -4,7 +4,15 @@ const mysql = require('mysql');
 const connection = require('./connection.js');
 
 const orm = {
-  selectAll: () => {},
+  selectAll: () => {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM burgers', (err, res, fields) => {
+        if (err) reject(err);
+        console.log(res);
+        resolve(res);
+      });
+    });
+  },
   insertOne: () => {},
   updateOne: () => {}
 };
