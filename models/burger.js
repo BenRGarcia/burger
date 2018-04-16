@@ -9,7 +9,7 @@ const burger = {
     });
   },
   addNewBurger: () => { orm.insertOne() },
-  updateBurger: () => { orm.updateOne() }
+  eatBurger: () => { orm.updateOne() }
 };
 
 module.exports = burger;
