@@ -2,6 +2,32 @@
 const express = require('express');
 const burger = require('../models/burger.js');
 
+// Input validation
+const isValid = (req, res, next) => {
+  // For clarity, define variable for expected 'burger' object
+  const newBurger = req.body;
+  // Test for presence of 'burger_name' prop
+  if (!newBurger.hasOwnProperty('burger_name')) {
+    const error = new Error(`POST request received missing required property 'burger_name'`);
+    error.status = 400;
+    next(error)
+  }
+  // Test for having one and only one prop
+  if (Object.keys(newBurger).length !== 1) {
+    const error = new Error(`POST request received has more properties than are allowed`);
+    error.status = 400;
+    next(error)
+  }
+  // Test for prop value of correct primitive data type
+  if (typeof newBurger.burger_name !== 'string') {
+    const error = new Error(`POST request received has incorrect primitive data type, should be 'string'`);
+    error.status = 400;
+    next(error)
+  }
+  // Data is valid, send to next middleward in stack
+  next();
+};
+
 // Create router
 const router = express.Router();
 
@@ -23,9 +49,18 @@ router.route('/')
           error.status = 500;
           next(error);
         });
-    })
-  .post((req, res, next) => {})
-  .put((req, res, next) => {});
+    });
+
+router.route('/burgers')
+  .post(isValid, (req, res, next) => {
+    // Send burger to DB
+    burger.addNewBurger(req.body)
+      .then(response => {
+        // If DB POST successful, redirect to reload page
+        res.send(`Success!`);
+      })
+      .catch(err => console.error(err));
+  });
 
 router.get('*', (req, res, next) => {
   res.redirect(301, '/');
