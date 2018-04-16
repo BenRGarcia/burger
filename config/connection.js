@@ -2,14 +2,16 @@
 require('dotenv').config()
 // Database dependency
 const mysql = require('mysql');
+// Define 'connection' variable in global namespace
+let connection;
 
-// 
+// Conditional .env variables
 if (process.env.JAWSDB_URL) {
   // Set database connection's deployed .env credentials
-  const connection = mysql.createConnection(process.env.JAWSDB_URL);
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
   // Set database connection's local .env credentials
-  const connection = mysql.createConnection({
+  connection = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT || 3306,
     user: process.env.DB_USER,
