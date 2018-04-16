@@ -16,8 +16,8 @@ const orm = {
   // Add new burger to database
   insertOne: ({ burger_name }) => {
     return new Promise((resolve, reject) => {
-      const queryString = 'INSERT INTO burgers (burgers_name) VALUES ?';
-      connection.query(query, burger_name, (err, res, fields) => {
+      const queryString = 'INSERT INTO burgers SET ?';
+      connection.query(queryString, { burger_name }, (err, res, fields) => {
         if (err) reject(err);
         resolve(res);
       });
