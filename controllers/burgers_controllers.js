@@ -7,7 +7,23 @@ const router = express.Router();
 
 // Define methods for PATH '/'
 router.route('/')
-  .get((req, res, next) => { res.render('index');})
+  .get((req, res, next) => {
+      // Retrieve all burgers
+      burger.getAllBurgers()
+        // Render burgers to response
+        .then(burgers => {
+          res.render('index', burgers);
+        })
+        // Error handling
+        .catch(err => {
+          // Server side error handling
+          console.error(err)
+          // Client side error handling
+          const error = new Error('Internal server error, database could not be accessed.');
+          error.status = 500;
+          next(error);
+        });
+    })
   .post((req, res, next) => {})
   .put((req, res, next) => {});
 
@@ -17,7 +33,9 @@ router.get('*', (req, res, next) => {
 
 // Client-Side Error handling
 router.use((err, req, res, next) => {
-  res.status(400).send({ error: `Internal Server Error` });
+  let status = err.status || 500;
+  let msg = err.message || `Internal server error.`;
+  res.status(status).send({ error: msg });
 });
 
 module.exports = router;
