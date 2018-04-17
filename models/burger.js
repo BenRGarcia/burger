@@ -21,6 +21,13 @@ const burger = {
         .then(res => resolve(res))
         .catch(err => reject(err));
     });
+  },
+  deleteAllBurgers: () => {
+    return new Promise((resolve, reject) => {
+      orm.deleteAll()
+        .then(res => resolve(res))
+        .catch(err => reject(err));
+    });
   }
 };
 
