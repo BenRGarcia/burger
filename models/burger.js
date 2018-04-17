@@ -15,7 +15,13 @@ const burger = {
         .catch(err => reject(err));
     });
   },
-  eatBurger: () => { orm.updateOne() }
+  eatBurger: burger => {
+    return new Promise((resolve, reject) => {
+      orm.updateOne(burger)
+        .then(res => resolve(res))
+        .catch(err => reject(err));
+    });
+  }
 };
 
 module.exports = burger;
