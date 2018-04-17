@@ -2,7 +2,7 @@
 const express = require('express');
 const burger = require('../models/burger.js');
 
-// Input validation for POST request
+// Input validation for POST/PUT requests
 const isValid = (req, res, next) => {
   // For define variable for expected 'burger' object
   const burger = req.body;
@@ -60,6 +60,11 @@ router.route('/burgers')
   })
   .put(isValid, (req, res, next) => {
     burger.eatBurger(req.body)
+      .then(r => res.status(204).send())
+      .catch(err => console.error(err));
+  })
+  .delete((req, res, next) => {
+    burger.deleteAllBurgers()
       .then(r => res.status(204).send())
       .catch(err => console.error(err));
   });
