@@ -44,49 +44,6 @@
       integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
       crossorigin="anonymous"></script>
     {{!-- Client side custom JS --}}
-    <script>
-      $(function() {
-
-        {{!-- On form submission... --}}
-        $('.container').on('submit', '#form-add', e => {
-          {{!-- ...prevent default reloading of page --}}
-          e.preventDefault();
-          {{!-- Get input from DOM --}}
-          let burger_name = $('#burger').val().trim();
-          let burger = { burger_name };
-          {{!-- Remove DOM element input value --}}
-          $('#burger').val("");
-          {{!-- Send POST request --}}
-          $.post('/burgers', burger)
-            {{!-- On success response, reload page --}}
-            .then(res => window.location.reload(true))
-            .catch(err => console.error(err));
-        });
-
-        {{!-- On form submission... --}}
-        $('.container').on('click', '.devour', e => {
-          {{!-- Get input from DOM --}}
-          let burger = { burger_name: $(e.target).data("burger") };
-          {{!-- Send PUT request --}}
-          $.ajax({
-            method: "PUT",
-            url: "/burgers",
-            data: burger
-          })
-            {{!-- On success response, reload page --}}
-            .then(res => window.location.reload(true))
-            .catch(err => console.error(err));
-        })
-
-        $('.container').on('click', '#delete-burgers', e => {
-          $.ajax({
-            method: "DELETE",
-            url: "/burgers"
-          })
-            .then(res => window.location.reload(true))
-            .catch(err => console.error(err));
-        })
-      });
-    </script>
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
