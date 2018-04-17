@@ -1,45 +1,13 @@
-{{!-- Burger input --}}
 <div class="row text-center my-3">
   <div class="col-12">
-    <form id="form-add">
-      <div class="form-group list-bg">
-        <label for="burger" class="h2">
-          1) Add a burger you'd like to eat
-        </label>
-        <input id="burger" type="text" class="form-control mx-auto mb-2" placeholder="ex. Double Cheeseburger" required>
-        <button type="submit" class="btn">Submit</button>
-      </div>
-    </form>
+    {{> addBurger}}
   </div>
 </div>
-
 <div class="row text-center">
-  {{!-- Burgers to eat --}}
   <div class="col-12 col-md-6 mb-3">
-    <div class="list-bg">
-      <h2>2) Eat Burgers Here</h2>
-        <ul class="text-left">
-          {{#each burgers}}
-            {{#unless devoured}}
-              <li>
-                <button class="btn devour" data-burger="{{burger_name}}">Eat Now</button> {{burger_name}}
-              </li>
-            {{/unless}}
-          {{/each}}
-        </ul>
-    </div>
+    {{> burgersToEat}}
   </div>
-  {{!-- Burgers eaten --}}
   <div class="col-12 col-md-6 mb-3">
-    <div class="list-bg">
-      <h2>3) Burgers You Have Eaten</h2>
-      <ul class="text-left">
-        {{#each burgers}}
-          {{#if devoured}}
-          <li>{{burger_name}}</li>
-          {{/if}}
-        {{/each}}
-      </ul>
-    </div>
+    {{> burgersEaten}}
   </div>
 </div>
