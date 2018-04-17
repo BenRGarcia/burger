@@ -44,25 +44,26 @@
       crossorigin="anonymous"></script>
     {{!-- Client side custom JS --}}
     <script>
-      {{!-- On ready --}}
       $(function() {
-        console.log(`Page has loaded`);
-        {{!-- On form submission --}}
+
         $('.container').on('submit', 'form', e => {
-          console.log(`Form was submitted`);
-          {{!-- Prevent default page reload --}}
-          {{!-- e.preventDefault(); --}}
-          {{!-- Get value of input --}}
           let burger_name = $('#burger').val().trim();
-          {{!-- Compose request object --}}
           let burger = { burger_name };
-          {{!-- Send POST request --}}
           $.post('/burgers', burger)
-            .then(res => {
-              console.log(res);
-            })
+            .then(res => console.log(res))
             .catch(err => console.error(err));
         });
+
+        $('.container').on('click', '.devour', e => {
+          let burger = { burger_name: $(e.target).data("burger") };
+          $.ajax({
+            method: "PUT",
+            url: "/burgers",
+            data: burger
+          })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        })
       });
     </script>
   </body>
