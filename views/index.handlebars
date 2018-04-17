@@ -22,7 +22,7 @@
         {{#each burgers}}
           {{#unless devoured}}
             <li>
-              <button class="btn">Eat Now</button> {{burger_name}}
+              <button class="btn devour" data-burger="{{burger_name}}">Eat Now</button> {{burger_name}}
             </li>
           {{/unless}}
         {{/each}}
