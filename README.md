@@ -25,6 +25,8 @@ CRUD operations:
 
 ![delete-burgers](https://user-images.githubusercontent.com/26657982/38887279-64ba38ae-4246-11e8-803b-a963900a9d7c.gif)
 
+## Code Snippets
+
 ### Handlebars Partials
 
 In ```/views/layouts/main.handlebars```
