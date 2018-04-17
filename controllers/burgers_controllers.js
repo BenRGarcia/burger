@@ -24,7 +24,7 @@ const isValid = (req, res, next) => {
     error.status = 400;
     next(error)
   }
-  // Data is valid, send to next middleward in stack
+  // Data is valid, send to next middleware in stack
   next();
 };
 
@@ -51,18 +51,20 @@ router.route('/')
         });
     });
 
+// Define methods for PATH '/burgers'
 router.route('/burgers')
   .post(isValid, (req, res, next) => {
-    // Send burger to DB
     burger.addNewBurger(req.body)
-      .then(r => res.send(`Success!`))
+      .then(r => res.status(201).send(req.body))
       .catch(err => console.error(err));
   })
   .put(isValid, (req, res, next) => {
     burger.eatBurger(req.body)
-    res.send(`Success`);
+      .then(r => res.status(204).send())
+      .catch(err => console.error(err));
   });
 
+// Wildcard redirect
 router.get('*', (req, res, next) => {
   res.redirect(301, '/');
 });
