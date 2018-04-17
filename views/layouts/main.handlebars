@@ -28,7 +28,7 @@
       </div>
       {{{ body }}}
       <footer class="fixed-bottom text-center">
-        <button class="btn w-50 mb-1">Delete All Burgers</button>
+        <button id="delete-burgers" class="btn w-50 mb-1">Delete All Burgers</button>
       </footer>
     </div>
     <script
@@ -74,6 +74,15 @@
             data: burger
           })
             {{!-- On success response, reload page --}}
+            .then(res => window.location.reload(true))
+            .catch(err => console.error(err));
+        })
+
+        $('.container').on('click', '#delete-burgers', e => {
+          $.ajax({
+            method: "DELETE",
+            url: "/burgers"
+          })
             .then(res => window.location.reload(true))
             .catch(err => console.error(err));
         })
