@@ -1,7 +1,7 @@
 {{!-- Burger input --}}
 <div class="row text-center my-3">
   <div class="col-12">
-    <form>
+    <form id="form-add">
       <div class="form-group list-bg">
         <label for="burger" class="h2">
           1) Add a burger you'd like to eat
@@ -18,15 +18,15 @@
   <div class="col-12 col-md-6 mb-3">
     <div class="list-bg">
       <h2>2) Eat Burgers Here</h2>
-      <ul class="text-left">
-        {{#each burgers}}
-          {{#unless devoured}}
-            <li>
-              <button class="btn devour" data-burger="{{burger_name}}">Eat Now</button> {{burger_name}}
-            </li>
-          {{/unless}}
-        {{/each}}
-      </ul>
+        <ul class="text-left">
+          {{#each burgers}}
+            {{#unless devoured}}
+              <li>
+                <button class="btn devour" data-burger="{{burger_name}}">Eat Now</button> {{burger_name}}
+              </li>
+            {{/unless}}
+          {{/each}}
+        </ul>
     </div>
   </div>
   {{!-- Burgers eaten --}}
