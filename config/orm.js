@@ -24,7 +24,15 @@ const orm = {
     });
   },
   // Change burger from 'devoured: 0' to 'devoured: 1'
-  updateOne: () => {},
+  updateOne: ({ burger_name }) => {
+    return new Promise((resolve, reject) => {
+      const queryString = 'UPDATE burgers SET ? WHERE ?';
+      connection.query(queryString, [{ devoured: 1}, { burger_name }], (err, res, fields) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
   // Delete all burgers from the database
   deleteAll: () => {}
 };
