@@ -6,6 +6,9 @@ const path = require('path');
 // Instantiate server
 const app = express();
 
+// Instantiate ExpressHandlebars to expose full API (Partials functionality)
+const hbs = exphbs.create({ defaultLayout: 'main'});
+
 // Mount middleware to parse request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,7 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Register handlebars engine with app
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 // Define port
