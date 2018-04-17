@@ -14,9 +14,10 @@
     <title>Eat More Burgers!</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container mt-1 mb-5">
       <div class="row">
         <div class="col-12 text-center">
+          <h6><a id="source-code" href="https://github.com/BenRGarcia/burger">View Source Code</a></h6>
           <h1 class="display-3 mt-3">Eat More Burgers!</h1>
         </div>
       </div>
@@ -46,22 +47,34 @@
     <script>
       $(function() {
 
-        $('.container').on('submit', 'form', e => {
+        {{!-- On form submission... --}}
+        $('.container').on('submit', '#form-add', e => {
+          {{!-- ...prevent default reloading of page --}}
+          e.preventDefault();
+          {{!-- Get input from DOM --}}
           let burger_name = $('#burger').val().trim();
           let burger = { burger_name };
+          {{!-- Remove DOM element input value --}}
+          $('#burger').val("");
+          {{!-- Send POST request --}}
           $.post('/burgers', burger)
-            .then(res => console.log(res))
+            {{!-- On success response, reload page --}}
+            .then(res => window.location.reload(true))
             .catch(err => console.error(err));
         });
 
+        {{!-- On form submission... --}}
         $('.container').on('click', '.devour', e => {
+          {{!-- Get input from DOM --}}
           let burger = { burger_name: $(e.target).data("burger") };
+          {{!-- Send PUT request --}}
           $.ajax({
             method: "PUT",
             url: "/burgers",
             data: burger
           })
-          .then(res => console.log(res))
+          {{!-- On success response, reload page --}}
+          .then(res => window.location.reload(true))
           .catch(err => console.error(err));
         })
       });
