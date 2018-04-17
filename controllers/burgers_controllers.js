@@ -2,25 +2,25 @@
 const express = require('express');
 const burger = require('../models/burger.js');
 
-// Input validation
+// Input validation for POST request
 const isValid = (req, res, next) => {
-  // For clarity, define variable for expected 'burger' object
-  const newBurger = req.body;
+  // For define variable for expected 'burger' object
+  const burger = req.body;
   // Test for presence of 'burger_name' prop
-  if (!newBurger.hasOwnProperty('burger_name')) {
-    const error = new Error(`POST request received missing required property 'burger_name'`);
+  if (!burger.hasOwnProperty('burger_name')) {
+    const error = new Error(`${req.method} request received missing required property 'burger_name'`);
     error.status = 400;
     next(error)
   }
   // Test for having one and only one prop
-  if (Object.keys(newBurger).length !== 1) {
-    const error = new Error(`POST request received has more properties than are allowed`);
+  if (Object.keys(burger).length !== 1) {
+    const error = new Error(`${req.method} request received has more properties than are allowed`);
     error.status = 400;
     next(error)
   }
   // Test for prop value of correct primitive data type
-  if (typeof newBurger.burger_name !== 'string') {
-    const error = new Error(`POST request received has incorrect primitive data type, should be 'string'`);
+  if (typeof burger.burger_name !== 'string') {
+    const error = new Error(`${req.method} request received has incorrect primitive data type, should be 'string'`);
     error.status = 400;
     next(error)
   }
@@ -55,11 +55,12 @@ router.route('/burgers')
   .post(isValid, (req, res, next) => {
     // Send burger to DB
     burger.addNewBurger(req.body)
-      .then(response => {
-        // If DB POST successful, redirect to reload page
-        res.send(`Success!`);
-      })
+      .then(r => res.send(`Success!`))
       .catch(err => console.error(err));
+  })
+  .put(isValid, (req, res, next) => {
+    burger.eatBurger(req.body)
+    res.send(`Success`);
   });
 
 router.get('*', (req, res, next) => {
